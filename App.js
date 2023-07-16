@@ -1,8 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 import { Image } from 'expo-image';
-import { StyleSheet, Text, View, ImageBackground, Pressable, TextInput } from 'react-native';
+import { StyleSheet, Text, View, ImageBackground, Pressable, TextInput, ScrollView, Alert } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import Slider from "@react-native-community/slider"; 
+// import VerticalSlider from 'rn-vertical-slider';
 import TypeWriter from 'react-native-typewriter'
 import { 
   useFonts,
@@ -27,8 +28,11 @@ function HomeScreen({ navigation }) {
     InriaSans_400Regular,
     RobotoCondensed_400Regular,
   });
-  redirect = () => {
+  redirectCheckIn = () => {
     navigation.navigate("CheckIn")
+  };
+  redirectToolBox = () => {
+    navigation.navigate("ToolBox")
   };
   // let {navigation} = this.props;
   if (!fontsLoaded) {
@@ -38,14 +42,20 @@ function HomeScreen({ navigation }) {
     <View style={homeStyles.container}>
       <Text style={homeStyles.title}>11:11</Text>
       <View style={homeStyles.topBlocks}>
-        <Pressable style={homeStyles.topLeftBlock} onPress={this.redirect}>
+        <Pressable style={homeStyles.topLeftBlock} onPress={this.redirectCheckIn}>
           {/* <View style={styles.topLeftBlock}> */}
             <Text style={homeStyles.topLeftBlockText}>Workbook</Text>
             {/* resize image */}
-            <Image source={require('./assets/work.png')} style={{ width: 100, height: 100 }} />
+            <Image source={require('./assets/work.png')} style={{ width: 160, height: 70 }} />
         {/* </View> */}
         </Pressable>
-        <View style={homeStyles.topRightBlock}></View>
+        <Pressable style={homeStyles.topRightBlock} onPress={this.redirectToolBox}>
+          {/* <View style={styles.topLeftBlock}> */}
+            <Text style={homeStyles.topRightBlockText}>Toolbox</Text>
+            {/* resize image */}
+            <Image source={require('./assets/toolbox/toolbox.png')} style={{ width: 120, height: 80 }} />
+        {/* </View> */}
+        </Pressable>
       </View>
       <View style={homeStyles.bottomBlocks}>
         <View style={homeStyles.topBlock}></View>
@@ -111,18 +121,28 @@ const homeStyles = StyleSheet.create({
     height: 150,
   },
   topRightBlock: {
+    zIndex: 1,
+    backgroundColor: '#8DABB1',
     width: "42%",
-    height: 150,
-    backgroundColor: '#3B6872',
-    opacity: 0.5,
-    borderRadius: 20,
     marginRight: "5%",
+    height: 147,
+    borderRadius: 20,
+    flexDirection: 'column',
+    alignItems: 'center',
   },
   topLeftBlockText: {
     color: '#F5F5F5',
     fontSize: 25,
     fontFamily: "InriaSans_400Regular",
     marginTop: "10%",
+    marginBottom: "5%",
+  },
+  topRightBlockText: {
+    color: '#F5F5F5',
+    fontSize: 25,
+    fontFamily: "InriaSans_400Regular",
+    marginTop: "10%",
+    marginBottom: "5%"
   },
 
   bottomBlocks: {
@@ -150,6 +170,227 @@ const homeStyles = StyleSheet.create({
   },
 });
 
+function ToolBox({ navigation }) {
+  redirectActivity1 = () => {
+    navigation.navigate("Activity1")
+  };
+  redirectActivity2 = () => {
+    navigation.navigate("Activity2")
+  };
+  redirectActivity3 = () => {
+    navigation.navigate("Activity3")
+  };
+  redirectActivity4 = () => {
+    navigation.navigate("Activity4")
+  };
+  redirectActivity14 = () => {
+    navigation.navigate("Activity14PreScreen")
+  };
+  redirectActivity17 = () => {
+    navigation.navigate("Activity17")
+  };
+  return (
+    <View style={toolBoxStyles.container}>
+      <Text style={toolBoxStyles.title}>Toolbox</Text> 
+      <ScrollView
+          flexDirection='column'
+          justifyContent= 'space-between'
+          width= "100%"
+          height= "10%"
+        >
+        <View style={toolBoxStyles.topBlocks}>
+          <Pressable style={toolBoxStyles.topLeftBlock} onPress={this.redirectActivity1}>
+            <Image source={require('./assets/toolbox/pickaxe.png')} style={{ width: 100, height: 70, marginTop: 20 }} />
+            <Text style={toolBoxStyles.blockText}>Seeking Support</Text>
+          </Pressable>
+          <Pressable style={toolBoxStyles.topRightBlock} onPress={this.redirectActivity2}>
+            <Image source={require('./assets/toolbox/clippers.png')} style={{ width: 130, height: 70, marginTop: 20 }} />
+            <Text style={toolBoxStyles.blockText}>Personal Safety Plan</Text>
+          </Pressable>
+        </View>
+        <View style={toolBoxStyles.secondBlocks}>
+          <Pressable style={toolBoxStyles.secondLeftBlock} onPress={this.redirectActivity3}>
+            <Image source={require('./assets/toolbox/saw.png')} style={{ width: 170, height: 70, marginTop: 20 }} />
+            <Text style={toolBoxStyles.blockText}>Building Your Circle of Support</Text>
+          </Pressable>
+          <Pressable style={toolBoxStyles.secondRightBlock} onPress={this.redirectActivity4}>
+            <Image source={require('./assets/toolbox/hammer.png')} style={{ width: 90, height: 80, marginTop: 20 }} />
+            <Text style={toolBoxStyles.blockText}>Why Me?</Text>
+          </Pressable>
+        </View>
+        <View style={toolBoxStyles.secondBlocks}>
+          <Pressable style={toolBoxStyles.secondLeftBlock} onPress={this.redirectCheckIn}>
+          </Pressable>
+          <Pressable style={toolBoxStyles.secondRightBlock} onPress={this.redirectToolBox}>
+          </Pressable>
+        </View>
+        <View style={toolBoxStyles.secondBlocks}>
+          <Pressable style={toolBoxStyles.secondLeftBlock} onPress={this.redirectCheckIn}>
+          </Pressable>
+          <Pressable style={toolBoxStyles.secondRightBlock} onPress={this.redirectToolBox}>
+          </Pressable>
+        </View>
+        <View style={toolBoxStyles.secondBlocks}>
+          <Pressable style={toolBoxStyles.secondLeftBlock} onPress={this.redirectCheckIn}>
+          </Pressable>
+          <Pressable style={toolBoxStyles.secondRightBlock} onPress={this.redirectToolBox}>
+          </Pressable>
+        </View>
+        <View style={toolBoxStyles.secondBlocks}>
+          <Pressable style={toolBoxStyles.secondLeftBlock} onPress={this.redirectCheckIn}>
+          </Pressable>
+          <Pressable style={toolBoxStyles.secondRightBlock} onPress={this.redirectToolBox}>
+          </Pressable>
+        </View>
+        <View style={toolBoxStyles.secondBlocks}>
+          <Pressable style={toolBoxStyles.secondLeftBlock} onPress={this.redirectCheckIn}>
+          </Pressable>
+          <Pressable style={toolBoxStyles.secondRightBlock} onPress={this.redirectActivity14}>
+            <Image source={require('./assets/toolbox/saw.png')} style={{ width: 170, height: 70, marginTop: 20 }} />
+            <Text style={toolBoxStyles.blockText}>Healing Through Writing</Text>
+          </Pressable>
+        </View>
+        <View style={toolBoxStyles.secondBlocks}>
+          <Pressable style={toolBoxStyles.secondLeftBlock} onPress={this.redirectCheckIn}>
+          </Pressable>
+          <Pressable style={toolBoxStyles.secondRightBlock} onPress={this.redirectToolBox}>
+          </Pressable>
+        </View>
+        <View style={toolBoxStyles.secondBlocks}>
+          <Pressable style={toolBoxStyles.secondLeftBlock} onPress={this.redirectActivity17}>
+            <Image source={require('./assets/toolbox/clippers.png')} style={{ width: 130, height: 70, marginTop: 20 }} />
+            <Text style={toolBoxStyles.blockText}>Guided Painting</Text>
+          </Pressable>
+          <Pressable style={toolBoxStyles.secondRightBlock} onPress={this.redirectToolBox}>
+          </Pressable>
+        </View>
+        <View style={toolBoxStyles.secondBlocks}>
+          <Pressable style={toolBoxStyles.secondLeftBlock} onPress={this.redirectCheckIn}>
+          </Pressable>
+          <Pressable style={toolBoxStyles.secondRightBlock} onPress={this.redirectToolBox}>
+          </Pressable>
+        </View>
+        <View style={toolBoxStyles.secondBlocks}>
+          <Pressable style={toolBoxStyles.secondLeftBlock} onPress={this.redirectCheckIn}>
+          </Pressable>
+          <Pressable style={toolBoxStyles.secondRightBlock} onPress={this.redirectToolBox}>
+          </Pressable>
+        </View>
+        <View style={toolBoxStyles.secondBlocks}>
+          <Pressable style={toolBoxStyles.secondLeftBlock} onPress={this.redirectCheckIn}>
+          </Pressable>
+          <Pressable style={toolBoxStyles.secondRightBlock} onPress={this.redirectToolBox}>
+          </Pressable>
+        </View>
+        <View style={toolBoxStyles.secondBlocks}>
+          <Pressable style={toolBoxStyles.secondLeftBlock} onPress={this.redirectCheckIn}>
+          </Pressable>
+          <Pressable style={toolBoxStyles.secondRightBlock} onPress={this.redirectToolBox}>
+          </Pressable>
+        </View>
+        <View style={toolBoxStyles.secondBlocks}>
+          <Pressable style={toolBoxStyles.secondLeftBlock} onPress={this.redirectCheckIn}>
+          </Pressable>
+          <Pressable style={toolBoxStyles.secondRightBlock} onPress={this.redirectToolBox}>
+          </Pressable>
+        </View>
+        <View style={toolBoxStyles.secondBlocks}>
+          <Pressable style={toolBoxStyles.secondLeftBlock} onPress={this.redirectCheckIn}>
+          </Pressable>
+          <Pressable style={toolBoxStyles.secondRightBlock} onPress={this.redirectToolBox}>
+          </Pressable>
+        </View>
+      </ScrollView>
+    </View>
+  )
+}
+
+const toolBoxStyles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#ECF7FB',
+    alignItems: 'center',
+  },
+  title: {
+    color: '#34947D',
+    fontSize: 95,
+    fontFamily: "RobotoCondensed_400Regular",
+    fontWeight: "bold",
+    marginTop: 60,
+    textShadowColor: 'rgba(0, 0, 0, 0.25)',
+    textShadowOffset: {width: 1, height: 1},
+    textShadowRadius: 10
+  },
+
+  blocks: {
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    width: "100%",
+    height: "30%",
+  },
+  topBlocks: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: "100%",
+    marginTop: 25,
+  },
+  topLeftBlock: {
+    zIndex: 1,
+    backgroundColor: '#8DABB1',
+    width: "42%",
+    marginLeft: "5%",
+    height: 147,
+    borderRadius: 20,
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  topRightBlock: {
+    zIndex: 1,
+    backgroundColor: '#8DABB1',
+    width: "42%",
+    marginRight: "5%",
+    height: 147,
+    borderRadius: 20,
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+
+  secondBlocks: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: "100%",
+    marginTop: 25,
+  },
+  secondLeftBlock: {
+    zIndex: 1,
+    backgroundColor: '#8DABB1',
+    width: "42%",
+    marginLeft: "5%",
+    height: 147,
+    borderRadius: 20,
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  secondRightBlock: {
+    zIndex: 1,
+    backgroundColor: '#8DABB1',
+    width: "42%",
+    marginRight: "5%",
+    height: 147,
+    borderRadius: 20,
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  blockText: {
+    color: '#ECF7FB',
+    fontSize: 20,
+    fontFamily: "InriaSans_400Regular",
+    fontWeight: "bold",
+    marginTop: 5,
+    textAlign: 'center',
+  },
+})
+
 function CheckIn({ navigation }) {
   let [fontsLoaded] = useFonts({
     GemunuLibre_400Regular,
@@ -159,7 +400,7 @@ function CheckIn({ navigation }) {
   });
 
   redirect = () => {
-    navigation.navigate("Activity14PreScreen")
+    navigation.navigate("Activity1PreScreen")
   };
   if (!fontsLoaded) {
     return <Text>Loading...</Text>;
@@ -227,10 +468,77 @@ const checkInStyles = StyleSheet.create({
   },
 });   
 
+function Activity1PreScreen({ navigation }) {
+  const [currentInstructions, setcurrentInstructions] = useState("It's time to build your circle. Think of supportive people or a group that you feel comfortable and loved around. Once you have that in mind, select characters to add them to your suppot system table! Some examples could be parents, friends, team, teacher, or anything in-between.");
+  let fontsLoaded = useFonts({
+    InriaSans_700Bold,
+    InriaSans_400Regular
+  });  
+  redirect = () => {
+    navigation.navigate("Activity1")
+  }; 
+  return (
+    <Pressable style={activity1PreScreenStyles.container} onPress={this.redirect}>
+      <Image source={require("./assets/activity14/Penguin.png")} style={activity14PreScreenStyles.penguin} />
+      <ImageBackground source={require("./assets/activity14/TextBubble.png")} style={activity14PreScreenStyles.speechbubble}>
+        <TypeWriter style={activity1PreScreenStyles.instructionText} typing={1} maxDelay={30}>{currentInstructions}</TypeWriter>
+        <Text style={activity1PreScreenStyles.prompt}>TAP ANYWHERE ON THE SCREEN TO MOVE FORWARD</Text>
+      </ImageBackground>
+    </Pressable>
+  )
+}
+
+const activity1PreScreenStyles = StyleSheet.create({
+  container: {
+    backgroundColor: '#ECF7FB',
+    width: "100%",
+    height: "100%",
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },  
+  prompt: {
+    fontFamily: "InriaSans_700Bold",
+    fontSize: 10,
+    color: '#3B6872',
+    right: "22%",
+    bottom: "40%",
+    position: 'absolute',
+    textAlign: 'left',
+  },
+  instructionText: {
+    fontFamily: "InriaSans_400Regular",
+    fontSize: 9,
+    width: "75%",
+    marginTop: "2%",
+    textAlign: 'left',
+    marginRight: "20%",
+    color: '#414141',
+  },
+})
+
 function Activity1({ navigation }) {
+  let fontsLoaded = useFonts({
+    InriaSans_700Bold,
+    InriaSans_400Regular
+  });  
+  redirect = () => {
+    navigation.navigate("Activity1")
+  }; 
   return (
     <View style={activity1Styles.container}>
-      <View style={activity1Styles.charSelectionContainter}>
+      <View style={activity1Styles.bottomCharChoser}>
+        <Text style={activity1Styles.choseTitle}>Choose a Character</Text>
+        <View style={activity1Styles.topRow}>
+          <View style={activity1Styles.char1}></View>
+          <View style={activity1Styles.char2}></View>
+          <View style={activity1Styles.char3}></View>
+        </View>
+        <View style={activity1Styles.bottomRow}>
+          <View style={activity1Styles.char4}></View>
+          <View style={activity1Styles.char5}></View>
+          <View style={activity1Styles.char6}></View>
+        </View>
       </View>
     </View>
   )
@@ -239,13 +547,82 @@ function Activity1({ navigation }) {
 const activity1Styles = StyleSheet.create({
   container: {
     backgroundColor: '#ECF7FB',
-  },
-  charSelectionContainter: {
-    backgroundColor: '#1C5360',
     width: "100%",
-    bottom: 0,
-    position: 'absolute',
+    height: "100%",
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  bottomCharChoser: {
+    backgroundColor: "#1C5360",
+    width: "100%",
     height: "40%",
+    bottom: 0,
+    position: "absolute",
+  },
+  choseTitle: {
+    color: "#FFFFFF",
+    fontFamily: "InriaSans_700Bold",
+    left: "5%",
+    top: "5%",
+  },
+  topRow: {
+    width: "100%",
+    height: "36%",
+    alignContent: "center",
+    flexDirection: "row",
+    justifyContent: "center",
+    left: -20,
+    top: "6%",
+  },
+  char1: {
+    width: "26%",
+    height: "100%",
+    backgroundColor: "#3B6872",
+    borderRadius: 10,
+  },
+  char2: {
+    width: "26%",
+    left: 20,
+    height: "100%",
+    backgroundColor: "#3B6872",
+    borderRadius: 10,
+  },
+  char3: {
+    width: "26%",
+    left: 40,
+    height: "100%",
+    backgroundColor: "#3B6872",
+    borderRadius: 10,
+  },
+  bottomRow: {
+    width: "100%",
+    height: "36%",
+    alignContent: "center",
+    flexDirection: "row",
+    justifyContent: "center",
+    left: -20,
+    top: "12%",
+  },
+  char4: {
+    width: "26%",
+    height: "100%",
+    backgroundColor: "#3B6872",
+    borderRadius: 10,
+  },
+  char5: {
+    width: "26%",
+    left: 20,
+    height: "100%",
+    backgroundColor: "#3B6872",
+    borderRadius: 10,
+  },
+  char6: {
+    width: "26%",
+    left: 40,
+    height: "100%",
+    backgroundColor: "#3B6872",
+    borderRadius: 10,
   },
 });
 
@@ -403,13 +780,14 @@ const activity14Styles = StyleSheet.create({
 
 function Activity17({ navigation }) {
   const [paths, setPaths] = useState([]);
+  const [color, setColor] = useState("red");
 
   const pan = Gesture.Pan()
     .onStart((g) => {
       const newPaths = [...paths];
       newPaths[paths.length] = {
         segments: [],
-        color: "blue",
+        color: color,
       };
       newPaths[paths.length].segments.push(`M ${g.x} ${g.y}`);
       setPaths(newPaths);
@@ -423,6 +801,34 @@ function Activity17({ navigation }) {
       }
     })
     .minDistance(1);
+  
+  const setColorBlue = () => {
+    setColor('#00A3FF');      
+  };
+
+  const setColorRed = () => {
+    setColor('#FF0000');
+  };
+
+  const setColorYellow = () => {
+    setColor('#FFD500');
+  };
+
+  const setColorGreen = () => {
+    setColor('#00FF00');
+  };
+
+  const setColorPurple = () => {
+    setColor('#FF00FF');
+  };
+
+  const setColorOrange = () => {
+    setColor('#ED7014');
+  };
+
+  const setColorBrown = () => {
+    setColor('#A52A2A');
+  };
 
   return (
     <View style={activity17Styles.container}>
@@ -435,7 +841,7 @@ function Activity17({ navigation }) {
                   <Path
                     key={index}
                     path={p.segments.join(" ")}
-                    strokeWidth={5}
+                    strokeWidth={20}
                     style="stroke"
                     color={p.color}
                   />
@@ -447,7 +853,16 @@ function Activity17({ navigation }) {
       </View>
       <View style={activity17Styles.bottomContainer}>
         <Image source={require('./assets/activity17/CanvasStand.png')} style={activity17Styles.canvasStand} />
-        <Image source={require('./assets/activity17/Palette.png')} style={activity17Styles.palette} />
+        <ImageBackground source={require('./assets/activity17/Palette.png')} style={activity17Styles.palette}>
+          <Pressable onPress={setColorBlue} style={activity17Styles.blueColor}></Pressable>
+          <Pressable onPress={setColorRed} style={activity17Styles.redColor}></Pressable>
+          <Pressable onPress={setColorYellow} style={activity17Styles.yellowColor}></Pressable>
+          <Pressable onPress={setColorGreen} style={activity17Styles.greenColor}></Pressable>
+          <Pressable onPress={setColorPurple} style={activity17Styles.purpleColor}></Pressable>
+          <Pressable onPress={setColorOrange} style={activity17Styles.orangeColor}></Pressable>
+          <Pressable onPress={setColorBrown} style={activity17Styles.brownColor}></Pressable>          
+        </ImageBackground>
+        <Image source={require('./assets/activity17/paintingPenguin.png')} style={activity17Styles.penguin}></Image>
       </View>
     </View>
   );
@@ -469,6 +884,14 @@ const activity17Styles = StyleSheet.create({
     borderColor: '#BD8B5D',
     borderWidth: 20,
   },
+  penguin: {
+    width: "35%",
+    height: "100%",
+    resizeMode: "contain",
+    position: 'absolute',
+    bottom: 0,
+    right: 5,
+  },    
   bottomContainer: {
     width: "100%",
     height: "20%",
@@ -482,17 +905,69 @@ const activity17Styles = StyleSheet.create({
     resizeMode: "contain",
   },
   palette: {
-    width: "50%",
-    height: "100%",
-    marginLeft: "10%",
+    width: "80%",
+    height: "103%",
     resizeMode: "contain",
     position: 'absolute',
     bottom: 0,
+    marginLeft: "4%",
+  },
+  blueColor: {
+    width: 30,
+    height: 30,
+    backgroundColor: '#00A3FF',
+    borderRadius: 50,
+    marginTop: "10%",
+    marginLeft: "20%",
+  },
+  redColor: {
+    width: 30,
+    height: 30,
+    backgroundColor: '#FF0000',
+    borderRadius: 50,
+    marginLeft: "50%",
+  },
+  yellowColor: {
+    width: 30,
+    height: 30,
+    backgroundColor: '#FFD500',
+    borderRadius: 50,
+    marginLeft: "10%",
+  },
+  greenColor: {
+    width: 30,
+    height: 30,
+    backgroundColor: '#00FF00',
+    borderRadius: 50,
+    marginLeft: "50%",
+  },
+  purpleColor: {
+    width: 30,
+    height: 30,
+    backgroundColor: '#FF00FF',
+    borderRadius: 50,
+    marginLeft: "30%",
+    marginTop: "-20%",
+  },
+  orangeColor: {
+    width: 30,
+    height: 30,
+    backgroundColor: '#ED7014',
+    borderRadius: 50,
+    marginLeft: "65%",
+    marginTop: "-10%",
+  },
+  brownColor: {
+    width: 30,
+    height: 30,
+    backgroundColor: '#A52A2A',
+    borderRadius: 50,
+    marginLeft: "40%",
+    marginTop: "-28%",
   },
 });
 
 const Stack = createNativeStackNavigator();
-
 
 export default function App() {
   return (
@@ -504,8 +979,11 @@ export default function App() {
         }}
       >
         <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="ToolBox" component={ToolBox} />
         <Stack.Screen name="CheckIn" component={CheckIn} />
+        <Stack.Screen name="Activity1PreScreen" component={Activity1PreScreen} />
         <Stack.Screen name="Activity1" component={Activity1} />
+        <Stack.Screen name="Activity2" component={Activity2} />
         <Stack.Screen name="Activity14PreScreen" component={Activity14PreScreen} options={{ animate: "none" }}/>
         <Stack.Screen name="Activity14" component={Activity14} options={{ animate: "none" }}/>
         <Stack.Screen name="Activity17" component={Activity17} options={{ animate: "none" }}/>
