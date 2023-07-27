@@ -1,9 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 import { Image } from 'expo-image';
-import { StyleSheet, Text, View, ImageBackground, Pressable, TextInput, ScrollView, Alert } from 'react-native';
+import { StyleSheet, Text, View, ImageBackground, Pressable, TextInput, ScrollView, Alert, Button, Modal, SafeAreaView } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import Slider from "@react-native-community/slider"; 
-// import VerticalSlider from 'rn-vertical-slider';
+import Svg, { Path as SvgPath } from "react-native-svg";
 import TypeWriter from 'react-native-typewriter'
 import { 
   useFonts,
@@ -11,7 +11,9 @@ import {
   InriaSans_400Regular,
   InriaSans_700Bold,
   RobotoCondensed_400Regular,
+  Itim_400Regular,
 } from '@expo-google-fonts/dev';
+
 import {
   Gesture,
   GestureDetector,
@@ -183,6 +185,9 @@ function ToolBox({ navigation }) {
   redirectActivity4 = () => {
     navigation.navigate("Activity4")
   };
+  redirectActivity13 = () => {
+    navigation.navigate("Activity13PreScreen")
+  };
   redirectActivity14 = () => {
     navigation.navigate("Activity14PreScreen")
   };
@@ -243,7 +248,7 @@ function ToolBox({ navigation }) {
           </Pressable>
         </View>
         <View style={toolBoxStyles.secondBlocks}>
-          <Pressable style={toolBoxStyles.secondLeftBlock} onPress={this.redirectCheckIn}>
+          <Pressable style={toolBoxStyles.secondLeftBlock} onPress={this.redirectActivity13}>
           </Pressable>
           <Pressable style={toolBoxStyles.secondRightBlock} onPress={this.redirectActivity14}>
             <Image source={require('./assets/toolbox/saw.png')} style={{ width: 170, height: 70, marginTop: 20 }} />
@@ -466,22 +471,42 @@ const checkInStyles = StyleSheet.create({
     fontSize: 15,
     fontFamily: "InriaSans_400Regular",
   },
-});   
+});
 
 function Activity1PreScreen({ navigation }) {
-  const [currentInstructions, setcurrentInstructions] = useState("It's time to build your circle. Think of supportive people or a group that you feel comfortable and loved around. Once you have that in mind, select characters to add them to your suppot system table! Some examples could be parents, friends, team, teacher, or anything in-between.");
+  const [currentInstructions, setcurrentInstructions] = useState("Welcome to our first activity, im excited that you’re here! Opening up to and being vulnerable with others isn’t always easy, but being surrounded with people that listen and care about you is crucial in working through difficulties presented.");
+  const [currText, setCurrText] = useState(<TypeWriter style={activity1PreScreenStyles.instructionText} typing={1} maxDelay={30}>{currentInstructions}</TypeWriter>)
   let fontsLoaded = useFonts({
     InriaSans_700Bold,
     InriaSans_400Regular
   });  
   redirect = () => {
-    navigation.navigate("Activity1")
-  }; 
+    if (currText.props.maxDelay == 30 && currentInstructions == "Welcome to our first activity, im excited that you’re here! Opening up to and being vulnerable with others isn’t always easy, but being surrounded with people that listen and care about you is crucial in working through difficulties presented.") {
+      setCurrText(<Text style={activity1PreScreenStyles.instructionText} maxDelay={0}>Welcome to our first activity, im excited that you’re here! Opening up to and being vulnerable with others isn’t always easy, but being surrounded with people that listen and care about you is crucial in working through difficulties presented.</Text>)
+    } else if (currText.props.maxDelay == 0 && currentInstructions == "Welcome to our first activity, im excited that you’re here! Opening up to and being vulnerable with others isn’t always easy, but being surrounded with people that listen and care about you is crucial in working through difficulties presented.") {
+      setcurrentInstructions("Think about the relationships in your life. Sometimes it’s easy to lose sight of your important relationships – with family, friends, and other people that can support you.")
+      setCurrText(<TypeWriter style={activity1PreScreenStyles.instructionText} typing={1} maxDelay={30}>Think about the relationships in your life. Sometimes it’s easy to lose sight of your important relationships – with family, friends, and other people that can support you.</TypeWriter>)
+    } else if (currText.props.maxDelay == 30 && currentInstructions == "Think about the relationships in your life. Sometimes it’s easy to lose sight of your important relationships – with family, friends, and other people that can support you.") {
+      setCurrText(<Text style={activity1PreScreenStyles.instructionText} maxDelay={0}>Think about the relationships in your life. Sometimes it’s easy to lose sight of your important relationships – with family, friends, and other people that can support you.</Text>)
+    } else if (currText.props.maxDelay == 0 && currentInstructions == "Think about the relationships in your life. Sometimes it’s easy to lose sight of your important relationships – with family, friends, and other people that can support you.") {
+      setcurrentInstructions("This exercise will help you identify supportive people, places, and things to create your very own support system. Think of a supportive person or group that you feel comfortable and loved around.")
+      setCurrText(<TypeWriter style={activity1PreScreenStyles.instructionText} typing={1} maxDelay={30}>This exercise will help you identify supportive people, places, and things to create your very own support system. Think of a supportive person or group that you feel comfortable and loved around.</TypeWriter>)
+    } else if (currText.props.maxDelay == 30 && currentInstructions == "This exercise will help you identify supportive people, places, and things to create your very own support system. Think of a supportive person or group that you feel comfortable and loved around.") { 
+      setCurrText(<Text style={activity1PreScreenStyles.instructionText} maxDelay={0}>This exercise will help you identify supportive people, places, and things to create your very own support system. Think of a supportive person or group that you feel comfortable and loved around.</Text>)
+    } else if (currText.props.maxDelay == 0 && currentInstructions == "This exercise will help you identify supportive people, places, and things to create your very own support system. Think of a supportive person or group that you feel comfortable and loved around.") {
+      setcurrentInstructions("Once you have a that in mind, click on a character below to add them to your support system table!")
+      setCurrText(<TypeWriter style={activity1PreScreenStyles.instructionText} typing={1} maxDelay={30}>Once you have a that in mind, click on a character below to add them to your support system table!</TypeWriter>)
+    } else if (currText.props.maxDelay == 30 && currentInstructions == "Once you have a that in mind, click on a character below to add them to your support system table!") {
+      setCurrText(<Text style={activity1PreScreenStyles.instructionText} maxDelay={0}>Once you have a that in mind, click on a character below to add them to your support system table!</Text>)
+    } else if (currText.props.maxDelay == 0 && currentInstructions == "Once you have a that in mind, click on a character below to add them to your support system table!") {
+      navigation.navigate("Activity1")
+    }
+  };
   return (
     <Pressable style={activity1PreScreenStyles.container} onPress={this.redirect}>
       <Image source={require("./assets/activity14/Penguin.png")} style={activity14PreScreenStyles.penguin} />
       <ImageBackground source={require("./assets/activity14/TextBubble.png")} style={activity14PreScreenStyles.speechbubble}>
-        <TypeWriter style={activity1PreScreenStyles.instructionText} typing={1} maxDelay={30}>{currentInstructions}</TypeWriter>
+        {currText}
         <Text style={activity1PreScreenStyles.prompt}>TAP ANYWHERE ON THE SCREEN TO MOVE FORWARD</Text>
       </ImageBackground>
     </Pressable>
@@ -510,7 +535,7 @@ const activity1PreScreenStyles = StyleSheet.create({
     fontFamily: "InriaSans_400Regular",
     fontSize: 9,
     width: "75%",
-    marginTop: "2%",
+    marginTop: "3%",
     textAlign: 'left',
     marginRight: "20%",
     color: '#414141',
@@ -525,19 +550,202 @@ function Activity1({ navigation }) {
   redirect = () => {
     navigation.navigate("Activity1")
   }; 
+
+  const [modalVisible, setModalVisible] = useState(false);
+  const [text, onChangeText] = React.useState('');
+  const [number, onChangeNumber] = React.useState('');
+  const [email, onChangeEmail] = React.useState('');
+
+  const [cowOpacity, setCowOpacity] = useState(0)
+  const [cowTop, setCowTop] = useState("200%")
+  const [cowRight, setCowRight] = useState("-21%")
+  const [cowZIndex, setCowZIndex] = useState(1)
+
+  const [dogOpacity, setDogOpacity] = useState(0)
+  const [dogTop, setDogTop] = useState("174%")
+  const [dogRight, setDogRight] = useState("-21%")
+
+  const [bunnyOpacity, setBunnyOpacity] = useState(0)
+  const [bunnyTop, setBunnyTop] = useState("174%")
+  const [bunnyRight, setBunnyRight] = useState("-21%")
+
+  const [penguinOpacity, setPenguinOpacity] = useState(0)
+  const [penguinTop, setPenguinTop] = useState("132%")
+  const [penguinRight, setPenguinRight] = useState("-21%")
+  const [penguinZIndex, setPenguinZIndex] = useState(1)
+
+  const [catOpacity, setCatOpacity] = useState(0)
+  const [catTop, setCatTop] = useState("132%")
+  const [catRight, setCatRight] = useState("-21%")
+
+  const [animalCount, setAnimalCount] = useState(0)
+
+  updateAnimal = (animal) => {
+    if (animal == "cow") {
+      if (animalCount == 0 || animalCount == 3) {
+        setCowTop("199%")
+      } else if (animalCount == 1 || animalCount == 2) {
+        setCowTop("194%")
+      }
+      if (animalCount == 0) {
+        setCowRight("35%")
+        setCowZIndex(2)
+      } else if (animalCount == 1) {
+        setCowRight("21%")
+      } else if (animalCount == 2) {
+        setCowRight("-21%")
+      } else if (animalCount == 3) {
+        setCowRight("-35%")
+        setCowZIndex(2)
+      }
+      setCowOpacity(1)
+      setAnimalCount(animalCount + 1)
+    } else if (animal == "dog") {
+      if (animalCount == 0 || animalCount == 3) {
+        setDogTop("177%")
+      } else if (animalCount == 1 || animalCount == 2) {
+        setDogTop("172%")
+      } else if (animalCount == 3) {
+        setDogTop("178%")
+      }
+      if (animalCount == 0) {
+        setDogRight("31%")
+      } else if (animalCount == 1) {
+        setDogRight("21%")
+      } else if (animalCount == 2) {
+        setDogRight("-21%")
+      } else if (animalCount == 3) {
+        setDogRight("-36%")
+      }
+      setDogOpacity(1)
+      setAnimalCount(animalCount + 1)
+    } else if (animal == "bunny") {
+      if (animalCount == 0 || animalCount == 3) {
+        setBunnyTop("156%")
+      } else if (animalCount == 1 || animalCount == 2) {
+        setBunnyTop("150%")
+      }
+      if (animalCount == 0) {
+        setBunnyRight("34%")
+      } else if (animalCount == 1) {
+        setBunnyRight("21%")
+      } else if (animalCount == 2) {
+        setBunnyRight("-21%")
+      } else if (animalCount == 3) {
+        setBunnyRight("-34%")
+      }
+      setBunnyOpacity(1)
+      setAnimalCount(animalCount + 1)
+    } else if (animal == "penguin") {
+      if (animalCount == 0 || animalCount == 3) {
+        setPenguinTop("139%")
+      } else if (animalCount == 1 || animalCount == 2) {
+        setPenguinTop("133%")
+      }
+      if (animalCount == 0) {
+        setPenguinRight("34%")
+        setPenguinZIndex(2)
+      } else if (animalCount == 1) {
+        setPenguinRight("21%")
+      } else if (animalCount == 2) {
+        setPenguinRight("-21%")
+      } else if (animalCount == 3) {
+        setPenguinRight("-34%")
+        setPenguinZIndex(2)
+      }
+      setPenguinOpacity(1)
+      setAnimalCount(animalCount + 1)
+    } else if (animal == "cat") {
+        if (animalCount < 4) {
+        setModalVisible(true)
+        if (animalCount == 0 || animalCount == 3) {
+          setCatTop("119%")
+        } else if (animalCount == 1 || animalCount == 2) {
+          setCatTop("113%")
+        }
+        if (animalCount == 0) {
+          setCatRight("32%")
+        } else if (animalCount == 1) {
+          setCatRight("21%")
+        } else if (animalCount == 2) {
+          setCatRight("-22%")
+        } else if (animalCount == 3) {
+          setCatRight("-36%")
+        }
+        setCatOpacity(1)
+        setAnimalCount(animalCount + 1)
+      }
+    }
+  }
+
   return (
     <View style={activity1Styles.container}>
+      <View style={activity1Styles.topBar}>
+        <Image source={require("./assets/activity1/cow.svg")} style={[activity1Styles.cow, {opacity: cowOpacity, top: cowTop, right: cowRight}]} id='cow'  />
+        <Image source={require("./assets/activity1/dog.svg")} style={[activity1Styles.dog, {opacity: dogOpacity, top: dogTop, right: dogRight}]} id='dog' />
+        <Image source={require("./assets/activity1/bunny.svg")} style={[activity1Styles.bunny, {opacity: bunnyOpacity, top: bunnyTop, right: bunnyRight}]} id='bunny' />
+        <Image source={require("./assets/activity1/penguin.svg")} style={[activity1Styles.penguin, {opacity: penguinOpacity, top: penguinTop, right: penguinRight, zIndex: penguinZIndex}]} id='penguin' />
+        <Image source={require("./assets/activity1/cat.svg")} style={[activity1Styles.cat, {opacity: catOpacity, top: catTop, right: catRight}]} id='cat' />
+        <Image source={require("./assets/activity1/fox.svg")} style={activity1Styles.fox} id='fox' />
+        <Image source={require("./assets/activity1/leftChair.svg")} style={activity1Styles.leftChar2} />
+        <Image source={require("./assets/activity1/leftChair.svg")} style={activity1Styles.leftChar1} />
+        <Image source={require("./assets/activity1/oreoCenter.svg")} style={activity1Styles.centerChar} />
+        <Image source={require("./assets/activity1/rightChair.svg")} style={activity1Styles.rightChar1} />
+        <Image source={require("./assets/activity1/rightChair.svg")} style={activity1Styles.rightChar2} />
+        <Image source={require("./assets/activity1/table1.svg")} style={activity1Styles.table} />
+      </View>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+        Alert.alert("Modal has been closed.");
+        setModalVisible(!modalVisible);
+        }}
+      >
+        <View style={activity1Styles.centeredView}>
+          <View style={activity1Styles.modalView}>
+            <Text style={activity1Styles.modalText}>Create Your Character</Text>
+            <SafeAreaView>
+            <TextInput
+              style={activity1Styles.input}
+              onChangeText={onChangeText}
+              placeholder="Name..."
+              value={text}
+            />
+            <TextInput
+              style={activity1Styles.input}
+              onChangeText={onChangeNumber}
+              value={number}
+              placeholder="Phone number..."
+            />
+            <TextInput
+              style={activity1Styles.input}
+              onChangeText={onChangeEmail}
+              value={email}
+              placeholder="Email address..."
+            />
+          </SafeAreaView>
+            <Pressable
+              style={[activity1Styles.button, activity1Styles.buttonClose]}
+              onPress={() => setModalVisible(!modalVisible)}
+            >
+              <Text style={activity1Styles.textStyle}>Submit</Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
       <View style={activity1Styles.bottomCharChoser}>
         <Text style={activity1Styles.choseTitle}>Choose a Character</Text>
         <View style={activity1Styles.topRow}>
-          <View style={activity1Styles.char1}></View>
-          <View style={activity1Styles.char2}></View>
-          <View style={activity1Styles.char3}></View>
+          <Pressable onPress={() => updateAnimal('dog')} style={activity1Styles.char1}><Image source={require("./assets/activity1/dog.svg")} style={activity1Styles.chooseDog} /></Pressable>
+          <Pressable onPress={() => updateAnimal('cow')} style={activity1Styles.char2}><Image source={require("./assets/activity1/cow.svg")} style={activity1Styles.chooseCow} /></Pressable>
+          <Pressable onPress={() => updateAnimal('bunny')} style={activity1Styles.char3}><Image source={require("./assets/activity1/bunny.svg")} style={activity1Styles.chooseBunny} /></Pressable>
         </View>
         <View style={activity1Styles.bottomRow}>
-          <View style={activity1Styles.char4}></View>
-          <View style={activity1Styles.char5}></View>
-          <View style={activity1Styles.char6}></View>
+          <Pressable onPress={() => updateAnimal('penguin')} style={activity1Styles.char4}><Image source={require("./assets/activity1/penguin.svg")} style={activity1Styles.choosePenguin} /></Pressable>
+          <Pressable onPress={() => updateAnimal('cat')} style={activity1Styles.char5}><Image source={require("./assets/activity1/cat.svg")} style={activity1Styles.chooseCat} /></Pressable>
+          <Pressable onPress={() => navigation.navigate("Activity1PreScreen")} style={activity1Styles.char6}><Image source={require("./assets/activity1/fox.svg")} style={activity1Styles.chooseFox} /></Pressable>
         </View>
       </View>
     </View>
@@ -545,6 +753,53 @@ function Activity1({ navigation }) {
 }
 
 const activity1Styles = StyleSheet.create({
+  input: {
+    height: 40,
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 35,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonOpen: {
+    backgroundColor: '#F194FF',
+  },
+  buttonClose: {
+    backgroundColor: '#2196F3',
+  },
+  textStyle: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: 'center',
+  },
   container: {
     backgroundColor: '#ECF7FB',
     width: "100%",
@@ -552,6 +807,139 @@ const activity1Styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  topBar: {
+    width: "100%",
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  dog: {
+    width: "22%",
+    height: "22%",
+    resizeMode: "contain",
+    right: "34%",
+    top: "112%",
+    opacity: "0%",
+    zIndex: 1,
+  },
+  cow: {
+    width: "22%",
+    height: "22%",
+    resizeMode: "contain",
+    right: "-21%",
+    top: "200%",
+    opacity: 0,
+    zIndex: 1,
+  },
+  bunny: {
+    width: "18%",
+    height: "18%",
+    resizeMode: "contain",
+    right: "34%",
+    top: "112%",
+    opacity: "0%",
+    zIndex: 1,
+  },
+  penguin: {
+    width: "19%",
+    height: "19%",
+    resizeMode: "contain",
+    right: "21%",
+    top: "132%",
+    opacity: "0%",
+    zIndex: 1,
+  },
+  cat: {
+    width: "22%",
+    height: "22%",
+    resizeMode: "contain",
+    right: "-35%",
+    // 119
+    top: "113%", 
+    opacity: "0%",
+    zIndex: 1,
+  },
+  fox: {
+    width: "24%",
+    height: "24%",
+    resizeMode: "contain",
+    right: "31%",
+    // 96
+    top: "90%",
+    opacity: "0%",
+    zIndex: 1,
+  },
+  table: {
+    width: "70%",
+    height: "100%",
+    bottom: "63%",
+    resizeMode: "contain",
+    zIndex: 2,
+  },
+  leftChar2: {
+    width: "20%",
+    height: "20%",
+    resizeMode: "contain",
+    right: "34%",
+    top: "79%",
+  },
+  leftChar1: {
+    width: "20%",
+    height: "20%",
+    resizeMode: "contain",
+    right: "20%",
+    top: "52%",
+  },
+  centerChar: {
+    width: "20%",
+    height: "20%",
+    resizeMode: "contain",
+    top: "25%",
+  },
+  rightChar1: {
+    width: "20%",
+    height: "20%",
+    resizeMode: "contain",
+    left: "20%",
+    top: "12%",
+  },
+  rightChar2: {
+    width: "20%",
+    height: "20%",
+    resizeMode: "contain",
+    left: "34%",
+    top: "-1%",
+  },
+  chooseDog: {
+    width: "80%",
+    height: "80%",
+    resizeMode: "contain",
+  },
+  chooseCow: {
+    width: "80%",
+    height: "80%",
+    resizeMode: "contain",
+  },
+  chooseBunny: {
+    width: "80%",
+    height: "80%",
+    resizeMode: "contain",
+  },
+  choosePenguin: {
+    width: "80%",
+    height: "80%",
+    resizeMode: "contain",
+  },
+  chooseCat: {
+    width: "80%",
+    height: "80%",
+    resizeMode: "contain",
+  },
+  chooseFox: {
+    width: "80%",
+    height: "80%",
+    resizeMode: "contain",
   },
   bottomCharChoser: {
     backgroundColor: "#1C5360",
@@ -580,6 +968,9 @@ const activity1Styles = StyleSheet.create({
     height: "100%",
     backgroundColor: "#3B6872",
     borderRadius: 10,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
   },
   char2: {
     width: "26%",
@@ -587,6 +978,9 @@ const activity1Styles = StyleSheet.create({
     height: "100%",
     backgroundColor: "#3B6872",
     borderRadius: 10,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
   },
   char3: {
     width: "26%",
@@ -594,6 +988,9 @@ const activity1Styles = StyleSheet.create({
     height: "100%",
     backgroundColor: "#3B6872",
     borderRadius: 10,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
   },
   bottomRow: {
     width: "100%",
@@ -609,6 +1006,9 @@ const activity1Styles = StyleSheet.create({
     height: "100%",
     backgroundColor: "#3B6872",
     borderRadius: 10,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
   },
   char5: {
     width: "26%",
@@ -616,6 +1016,9 @@ const activity1Styles = StyleSheet.create({
     height: "100%",
     backgroundColor: "#3B6872",
     borderRadius: 10,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
   },
   char6: {
     width: "26%",
@@ -623,6 +1026,9 @@ const activity1Styles = StyleSheet.create({
     height: "100%",
     backgroundColor: "#3B6872",
     borderRadius: 10,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 
@@ -638,6 +1044,461 @@ function Activity2({ navigation }) {
 const activity2Styles = StyleSheet.create({
   container: {
     backgroundColor: '#ECF7FB',
+  },
+});
+
+function Activity13PreScreen({ navigation }) {
+  const [currentInstructions, setcurrentInstructions] = useState("Welcome to Sensing for Soothing! An often-used, reliable technique for oncoming waves of anxiety is the 5-4-3-2-1 method.");
+  const [currText, setCurrText] = useState(<TypeWriter style={activity1PreScreenStyles.instructionText} typing={1} maxDelay={30}>{currentInstructions}</TypeWriter>)
+  let fontsLoaded = useFonts({
+    InriaSans_700Bold,
+    InriaSans_400Regular
+  });  
+  redirect = () => {
+    if (currText.props.maxDelay == 30 && currentInstructions == "Welcome to Sensing for Soothing! An often-used, reliable technique for oncoming waves of anxiety is the 5-4-3-2-1 method.") {
+      setCurrText(<Text style={activity13PreScreenStyles.instructionText} maxDelay={0}>Welcome to Sensing for Soothing! An often-used, reliable technique for oncoming waves of anxiety is the 5-4-3-2-1 method.</Text>)
+    } else if (currText.props.maxDelay == 0 && currentInstructions == "Welcome to Sensing for Soothing! An often-used, reliable technique for oncoming waves of anxiety is the 5-4-3-2-1 method.") {
+      setcurrentInstructions("This strategy works by identifying things you can see, 4 things you can hear, 3 things you can feel, 2 things you can smell, and 1 thing you can taste.")
+      setCurrText(<TypeWriter style={activity13PreScreenStyles.instructionText} typing={1} maxDelay={30}>This strategy works by identifying 5 things you can see, 4 things you can hear, 3 things you can feel, 2 things you can smell, and 1 thing you can taste.</TypeWriter>)
+    } else if (currText.props.maxDelay == 30 && currentInstructions == "This strategy works by identifying things you can see, 4 things you can hear, 3 things you can feel, 2 things you can smell, and 1 thing you can taste.") {
+      setCurrText(<Text style={activity13PreScreenStyles.instructionText} maxDelay={0}>This strategy works by identifying things you can see, 4 things you can hear, 3 things you can feel, 2 things you can smell, and 1 thing you can taste.</Text>)
+    } else if (currText.props.maxDelay == 0 && currentInstructions == "This strategy works by identifying things you can see, 4 things you can hear, 3 things you can feel, 2 things you can smell, and 1 thing you can taste.") {
+      setcurrentInstructions("By recognizing our senses, we can ground ourselves in reality, and distract from the things we fear.")
+      setCurrText(<TypeWriter style={activity13PreScreenStyles.instructionText} typing={1} maxDelay={30}>By recognizing our senses, we can ground ourselves in reality, and distract from the things we fear.</TypeWriter>)
+    } else if (currText.props.maxDelay == 30 && currentInstructions == "By recognizing our senses, we can ground ourselves in reality, and distract from the things we fear.") { 
+      setCurrText(<Text style={activity13PreScreenStyles.instructionText} maxDelay={0}>By recognizing our senses, we can ground ourselves in reality, and distract from the things we fear.</Text>)
+    } else if (currText.props.maxDelay == 0 && currentInstructions == "By recognizing our senses, we can ground ourselves in reality, and distract from the things we fear.") {
+      setcurrentInstructions("Today, you’ll stock your shelves with ideas you can call upon in times you need it, practicing your skills of identifying feelings and tastes around you.")
+      setCurrText(<TypeWriter style={activity13PreScreenStyles.instructionText} typing={1} maxDelay={30}>Today, you’ll stock your shelves with ideas you can call upon in times you need it, practicing your skills of identifying feelings and tastes around you.</TypeWriter>)
+    } else if (currText.props.maxDelay == 30 && currentInstructions == "Today, you’ll stock your shelves with ideas you can call upon in times you need it, practicing your skills of identifying feelings and tastes around you.") {
+      setCurrText(<Text style={activity13PreScreenStyles.instructionText} maxDelay={0}>Today, you’ll stock your shelves with ideas you can call upon in times you need it, practicing your skills of identifying feelings and tastes around you.</Text>)
+    } else if (currText.props.maxDelay == 0 && currentInstructions == "Today, you’ll stock your shelves with ideas you can call upon in times you need it, practicing your skills of identifying feelings and tastes around you.") {
+      navigation.navigate("Activity13")
+    }
+  };
+  return (
+    <Pressable style={activity13PreScreenStyles.container} onPress={this.redirect}>
+      <Image source={require("./assets/activity14/Penguin.png")} style={activity14PreScreenStyles.penguin} />
+      <ImageBackground source={require("./assets/activity14/TextBubble.png")} style={activity14PreScreenStyles.speechbubble}>
+        {currText}
+        <Text style={activity13PreScreenStyles.prompt}>TAP ANYWHERE ON THE SCREEN TO MOVE FORWARD</Text>
+      </ImageBackground>
+    </Pressable>
+  )
+}
+
+const activity13PreScreenStyles = StyleSheet.create({
+  container: {
+    backgroundColor: '#ECF7FB',
+    width: "100%",
+    height: "100%",
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },  
+  prompt: {
+    fontFamily: "InriaSans_700Bold",
+    fontSize: 9,
+    color: '#3B6872',
+    right: "22%",
+    bottom: "40%",
+    position: 'absolute',
+    textAlign: 'left',
+  },
+  instructionText: {
+    fontFamily: "InriaSans_400Regular",
+    fontSize: 9,
+    width: "75%",
+    marginTop: "3%",
+    textAlign: 'left',
+    marginRight: "20%",
+    color: '#414141',
+  },
+})
+
+function Activity13({ navigation }) {
+  let [fontsLoaded] = useFonts({
+    Itim_400Regular
+  });
+  if (!fontsLoaded) {
+    return <Text>Loading...</Text>;
+  }
+  redirect = () => {
+    navigation.navigate("Home")
+  };
+  redirect2 = () => {
+    navigation.navigate("SightSense")
+  };
+  return (
+    <View style={activity13Styles.container}>
+      <Pressable style={activity13Styles.backButton} onPress={this.redirect}>
+        <Image source={require("./assets/activity13/arrow.svg")} style={{ width: "50%", height: "50%" }} />
+      </Pressable>
+      <View style={activity13Styles.topBuffer}></View>
+      <View style={activity13Styles.row}>
+        <Text style={activity13Styles.rowLetter}>S</Text>
+        <View style={{width: "2%", height: "100%", backgroundColor: "#B67222"}}></View>
+        <View style={{width: "2%", height: "100%", backgroundColor: "#532600"}}></View>
+        <View style={activity13Styles.shelfRow}>
+          <View style={[activity13Styles.shelfAccent2, {width: "110%", zIndex: "10"}]}></View>
+          <View style={activity13Styles.mainShelf}>
+            <Pressable style={{ width: "25%", height: "90%", borderColor: "#FFF", borderRadius: "25px", borderWidth: 5, borderStyle: "dotted", marginLeft: "6.25%" }} onPress={this.redirect2}></Pressable>
+            <Pressable style={{ width: "25%", height: "90%", borderColor: "#FFF", borderRadius: "25px", borderWidth: 5, borderStyle: "dotted", marginLeft: "6.25%" }}></Pressable>
+            <Pressable style={{ width: "25%", height: "90%", borderColor: "#FFF", borderRadius: "25px", borderWidth: 5, borderStyle: "dotted", marginLeft: "6.25%" }}></Pressable>
+          </View>
+          <View style={activity13Styles.shelfAccent1}></View>
+          <View style={activity13Styles.shelfAccent2}></View>
+          <View style={activity13Styles.shelfAccent3}></View>
+        </View>
+        <View style={{width: "2%", height: "100%", backgroundColor: "#532600", zIndex: "-1"}}></View>
+        <View style={{width: "2%", height: "100%", backgroundColor: "#B67222"}}></View>
+      </View>
+      <View style={activity13Styles.row}>
+        <Text style={activity13Styles.rowLetter}>I</Text>
+        <View style={{width: "2%", height: "100%", backgroundColor: "#B67222"}}></View>
+        <View style={{width: "2%", height: "100%", backgroundColor: "#532600"}}></View>
+        <View style={activity13Styles.shelfRow}>
+        <View style={activity13Styles.mainShelf}>
+            <Pressable style={{ width: "25%", height: "90%", borderColor: "#FFF", borderRadius: "25px", borderWidth: 5, borderStyle: "dotted", marginLeft: "6.25%" }}></Pressable>
+            <Pressable style={{ width: "25%", height: "90%", borderColor: "#FFF", borderRadius: "25px", borderWidth: 5, borderStyle: "dotted", marginLeft: "6.25%" }}></Pressable>
+            <Pressable style={{ width: "25%", height: "90%", borderColor: "#FFF", borderRadius: "25px", borderWidth: 5, borderStyle: "dotted", marginLeft: "6.25%" }}></Pressable>
+          </View>
+          <View style={activity13Styles.shelfAccent1}></View>
+          <View style={activity13Styles.shelfAccent2}></View>
+          <View style={activity13Styles.shelfAccent3}></View>
+        </View>
+        <View style={{width: "2%", height: "100%", backgroundColor: "#532600"}}></View>
+        <View style={{width: "2%", height: "100%", backgroundColor: "#B67222"}}></View>
+      </View>
+      <View style={activity13Styles.row}>
+        <Text style={activity13Styles.rowLetter}>G</Text>
+        <View style={{width: "2%", height: "100%", backgroundColor: "#B67222"}}></View>
+        <View style={{width: "2%", height: "100%", backgroundColor: "#532600"}}></View>
+        <View style={activity13Styles.shelfRow}>
+        <View style={activity13Styles.mainShelf}>
+            <Pressable style={{ width: "25%", height: "90%", borderColor: "#FFF", borderRadius: "25px", borderWidth: 5, borderStyle: "dotted", marginLeft: "6.25%" }}></Pressable>
+            <Pressable style={{ width: "25%", height: "90%", borderColor: "#FFF", borderRadius: "25px", borderWidth: 5, borderStyle: "dotted", marginLeft: "6.25%" }}></Pressable>
+            <Pressable style={{ width: "25%", height: "90%", borderColor: "#FFF", borderRadius: "25px", borderWidth: 5, borderStyle: "dotted", marginLeft: "6.25%" }}></Pressable>
+          </View>
+          <View style={activity13Styles.shelfAccent1}></View>
+          <View style={activity13Styles.shelfAccent2}></View>
+          <View style={activity13Styles.shelfAccent3}></View>
+        </View>
+        <View style={{width: "2%", height: "100%", backgroundColor: "#532600"}}></View>
+        <View style={{width: "2%", height: "100%", backgroundColor: "#B67222"}}></View>
+      </View>
+      <View style={activity13Styles.row}>
+        <Text style={activity13Styles.rowLetter}>H</Text>
+        <View style={{width: "2%", height: "100%", backgroundColor: "#B67222"}}></View>
+        <View style={{width: "2%", height: "100%", backgroundColor: "#532600"}}></View>
+        <View style={activity13Styles.shelfRow}>
+        <View style={activity13Styles.mainShelf}>
+            <Pressable style={{ width: "25%", height: "90%", borderColor: "#FFF", borderRadius: "25px", borderWidth: 5, borderStyle: "dotted", marginLeft: "6.25%" }}></Pressable>
+            <Pressable style={{ width: "25%", height: "90%", borderColor: "#FFF", borderRadius: "25px", borderWidth: 5, borderStyle: "dotted", marginLeft: "6.25%" }}></Pressable>
+            <Pressable style={{ width: "25%", height: "90%", borderColor: "#FFF", borderRadius: "25px", borderWidth: 5, borderStyle: "dotted", marginLeft: "6.25%" }}></Pressable>
+          </View>
+          <View style={activity13Styles.shelfAccent1}></View>
+          <View style={activity13Styles.shelfAccent2}></View>
+          <View style={activity13Styles.shelfAccent3}></View>
+        </View>
+        <View style={{width: "2%", height: "100%", backgroundColor: "#532600"}}></View>
+        <View style={{width: "2%", height: "100%", backgroundColor: "#B67222"}}></View>
+      </View>
+      <View style={activity13Styles.row}>
+        <Text style={activity13Styles.rowLetter}>T</Text>
+        <View style={{width: "2%", height: "100%", backgroundColor: "#B67222" }}></View>
+        <View style={{width: "2%", height: "100%", backgroundColor: "#532600", marginTop: "-5%" }}></View>
+        <View style={activity13Styles.shelfRow}>
+          <View style={[activity13Styles.mainShelf, {height: "85%"}]}>
+            <Pressable style={{ width: "25%", height: "90%", borderColor: "#FFF", borderRadius: "25px", borderWidth: 5, borderStyle: "dotted", marginLeft: "6.25%" }}></Pressable>
+            <Pressable style={{ width: "25%", height: "90%", borderColor: "#FFF", borderRadius: "25px", borderWidth: 5, borderStyle: "dotted", marginLeft: "6.25%" }}></Pressable>
+            <Pressable style={{ width: "25%", height: "90%", borderColor: "#FFF", borderRadius: "25px", borderWidth: 5, borderStyle: "dotted", marginLeft: "6.25%" }}></Pressable>
+          </View>
+          <Image source={require("./assets/activity13/shelfBottom.png")} style={{width: "110%", height: "30%", resizeMode: "contain", zIndex: "10", marginTop: -2 }} />
+        </View>
+        <View style={{width: "2%", height: "100%", backgroundColor: "#532600", marginTop: "-5%", zIndex: "-1" }}></View>
+        <View style={{width: "2%", height: "100%", backgroundColor: "#B67222" }}></View>
+      </View>
+      <View style={activity13Styles.bottomBuffer}></View>
+    </View>
+  )
+}
+
+const activity13Styles = StyleSheet.create({
+  backButton: {
+    width: 50,
+    height: 50,
+    left: "5%",
+    bottom: "5%",
+    position: 'absolute',
+    zIndex: 10,
+    borderRadius: 50,
+    backgroundColor: "#1C5360",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  container: {
+    backgroundColor: '#F0DCBB',
+    width: "100%",
+    height: "100%",
+    display: "flex",
+
+    flexDirection: 'column',
+  },
+  topBuffer: {
+    width: "100%",
+    height: "10%",
+    top: 0,
+    flexDirection: 'row',
+    alignItems: 'top',
+  },
+  row: {
+    width: "100%",
+    height: "14%",
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  shelfRow: {
+    width: "67%", 
+    height: "100%", 
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  mainShelf: {
+    backgroundColor: "#3E1300",
+    width: "100%",
+    height: "85%",
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  shelfAccent1: {
+    backgroundColor: "#683205",
+    width: "100%",
+    height: "5%",
+  },
+  shelfAccent2: {
+    backgroundColor: "#B67222",
+    width: "100%",
+    height: "5%",
+  },
+  shelfAccent3: {
+    backgroundColor: "#572D08",
+    width: "100%",
+    height: "5%",
+  },
+  rowLetter: {
+    width: 65, 
+    marginLeft: 25, 
+    fontFamily: "Itim_400Regular", 
+    fontSize: 80,
+  },
+  bottomBuffer: {
+    width: "100%",
+    height: "20%",
+    bottom: 0,
+    flexDirection: 'row',
+    alignItems: 'bottom',
+    backgroundColor: "#C88978",
+  }
+});
+
+function SightSense({ navigation }) {
+  const [paths, setPaths] = useState([]);
+  const [color, setColor] = useState("red");
+
+  const pan = Gesture.Pan()
+    .onStart((g) => {
+      const newPaths = [...paths];
+      newPaths[paths.length] = {
+        segments: [],
+        color: color,
+      };
+      newPaths[paths.length].segments.push(`M ${g.x} ${g.y}`);
+      setPaths(newPaths);
+    })
+    .onUpdate((g) => {
+      const index = paths.length - 1;
+      const newPaths = [...paths];
+      if (newPaths?.[index]?.segments) {
+        newPaths[index].segments.push(`L ${g.x} ${g.y}`);
+        setPaths(newPaths);
+      }
+    })
+    .minDistance(1);
+  
+  const setColorBlue = () => {
+    setColor('#00A3FF');      
+  };
+
+  const setColorRed = () => {
+    setColor('#FF0000');
+  };
+
+  const setColorYellow = () => {
+    setColor('#FFD500');
+  };
+
+  const setColorGreen = () => {
+    setColor('#00FF00');
+  };
+
+  const setColorPurple = () => {
+    setColor('#FF00FF');
+  };
+
+  const setColorOrange = () => {
+    setColor('#ED7014');
+  };
+
+  const setColorBrown = () => {
+    setColor('#A52A2A');
+  };
+
+  return (
+    <View style={sightSense.container}>
+      <View style={sightSense.topBar}>
+        <TextInput style={{ fontFamily: "InriaSans_700Bold", fontSize: 20, color: '#3B6872' }} placeholder='Name this scene...'></TextInput>
+      </View>
+      <View style={sightSense.canvas}>
+        <GestureHandlerRootView style={{ flex: 1, height: "60%", width: "100%" }}>
+          <GestureDetector gesture={pan}>
+            <View style={{ flex: 1, backgroundColor: "white" }}>
+              <Canvas style={{ flex: 8 }}>
+                {paths.map((p, index) => (
+                  <Path
+                    key={index}
+                    path={p.segments.join(" ")}
+                    strokeWidth={20}
+                    style="stroke"
+                    color={p.color}
+                  />
+                ))}
+              </Canvas>
+            </View>
+          </GestureDetector>
+        </GestureHandlerRootView>
+      </View>
+      <View style={sightSense.bottomContainer}>
+        <Image source={require('./assets/activity17/CanvasStand.png')} style={sightSense.canvasStand} />
+        <ImageBackground source={require('./assets/activity17/Palette.png')} style={sightSense.palette}>
+          <Pressable onPress={setColorBlue} style={sightSense.blueColor}></Pressable>
+          <Pressable onPress={setColorRed} style={sightSense.redColor}></Pressable>
+          <Pressable onPress={setColorYellow} style={sightSense.yellowColor}></Pressable>
+          <Pressable onPress={setColorGreen} style={sightSense.greenColor}></Pressable>
+          <Pressable onPress={setColorPurple} style={sightSense.purpleColor}></Pressable>
+          <Pressable onPress={setColorOrange} style={sightSense.orangeColor}></Pressable>
+          <Pressable onPress={setColorBrown} style={sightSense.brownColor}></Pressable>          
+        </ImageBackground>
+        <Image source={require('./assets/activity17/paintingPenguin.png')} style={sightSense.penguin}></Image>
+      </View>
+    </View>
+  );
+}
+
+const sightSense = StyleSheet.create({
+  topBar: {
+    width: "100%",
+    height: "10%",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  container: {
+    backgroundColor: '#ECF7FB',
+    width: "100%",
+    height: "100%",
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  canvas: {
+    width: "80%",
+    height: "60%",
+    borderRadius: 20,
+    borderColor: '#BD8B5D',
+    borderWidth: 20,
+  },
+  penguin: {
+    width: "35%",
+    height: "100%",
+    resizeMode: "contain",
+    position: 'absolute',
+    bottom: 0,
+    right: 5,
+  },    
+  bottomContainer: {
+    width: "100%",
+    height: "20%",
+    backgroundColor: '#ECF7FB',
+    bottom: 0,
+  },
+  canvasStand: {
+    width: "100%",
+    height: "100%",
+    marginTop: -20,
+    resizeMode: "contain",
+  },
+  palette: {
+    width: "80%",
+    height: "103%",
+    resizeMode: "contain",
+    position: 'absolute',
+    bottom: 0,
+    marginLeft: "4%",
+  },
+  blueColor: {
+    width: 30,
+    height: 30,
+    backgroundColor: '#00A3FF',
+    borderRadius: 50,
+    marginTop: "10%",
+    marginLeft: "20%",
+  },
+  redColor: {
+    width: 30,
+    height: 30,
+    backgroundColor: '#FF0000',
+    borderRadius: 50,
+    marginLeft: "50%",
+  },
+  yellowColor: {
+    width: 30,
+    height: 30,
+    backgroundColor: '#FFD500',
+    borderRadius: 50,
+    marginLeft: "10%",
+  },
+  greenColor: {
+    width: 30,
+    height: 30,
+    backgroundColor: '#00FF00',
+    borderRadius: 50,
+    marginLeft: "50%",
+  },
+  purpleColor: {
+    width: 30,
+    height: 30,
+    backgroundColor: '#FF00FF',
+    borderRadius: 50,
+    marginLeft: "30%",
+    marginTop: "-20%",
+  },
+  orangeColor: {
+    width: 30,
+    height: 30,
+    backgroundColor: '#ED7014',
+    borderRadius: 50,
+    marginLeft: "65%",
+    marginTop: "-10%",
+  },
+  brownColor: {
+    width: 30,
+    height: 30,
+    backgroundColor: '#A52A2A',
+    borderRadius: 50,
+    marginLeft: "40%",
+    marginTop: "-28%",
   },
 });
 
@@ -984,6 +1845,9 @@ export default function App() {
         <Stack.Screen name="Activity1PreScreen" component={Activity1PreScreen} />
         <Stack.Screen name="Activity1" component={Activity1} />
         <Stack.Screen name="Activity2" component={Activity2} />
+        <Stack.Screen name="Activity13PreScreen" component={Activity13PreScreen} options={{ animate: "none" }}/>
+        <Stack.Screen name="Activity13" component={Activity13} options={{ animate: "none" }}/>
+        <Stack.Screen name="SightSense" component={SightSense} options={{ animate: "none" }}/>
         <Stack.Screen name="Activity14PreScreen" component={Activity14PreScreen} options={{ animate: "none" }}/>
         <Stack.Screen name="Activity14" component={Activity14} options={{ animate: "none" }}/>
         <Stack.Screen name="Activity17" component={Activity17} options={{ animate: "none" }}/>
